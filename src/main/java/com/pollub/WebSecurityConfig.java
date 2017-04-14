@@ -32,12 +32,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .permitAll()
                 .and()
-                .authorizeRequests()
-                .antMatchers("/resources/**", "/registration").permitAll()
-                .anyRequest().authenticated()
-                .and()
                 .logout()
-                .permitAll();
+                .permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/css/**", "/registration", "/webjars/**").permitAll()
+                .anyRequest().authenticated();
     }
 
     @Autowired
