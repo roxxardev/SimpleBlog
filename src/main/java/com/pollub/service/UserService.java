@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created by Eryk on 2017-04-13.
@@ -31,5 +32,13 @@ public class UserService {
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public void delete(long id) {
+        userRepository.delete(id);
     }
 }

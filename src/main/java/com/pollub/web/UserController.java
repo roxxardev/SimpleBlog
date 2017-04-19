@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 /**
  * Created by Eryk on 2017-04-13.
  */
@@ -45,6 +47,12 @@ public class UserController {
         securityService.autoLogin(userForm.getUsername(), userForm.getPassword());
 
         return "redirect:/welcome";
+    }
+
+    @RequestMapping(value = "/list")
+    public String userList(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "list";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
