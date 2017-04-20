@@ -4,6 +4,8 @@ import com.pollub.model.User;
 import com.pollub.service.SecurityService;
 import com.pollub.service.UserService;
 import com.pollub.validator.UserValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,8 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
+    Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
@@ -42,9 +46,9 @@ public class UserController {
         if(bindingResult.hasErrors()) {
             return "registration";
         }
-
+        String userPassword = userForm.getPassword();
         userService.save(userForm);
-        securityService.autoLogin(userForm.getUsername(), userForm.getPassword());
+        securityService.autoLogin(userForm.getUsername(), userPassword);
 
         return "redirect:/welcome";
     }
@@ -63,7 +67,6 @@ public class UserController {
         if(logout != null) {
             model.addAttribute("message", "Your have been logged out.");
         }
-
         return "login";
     }
 
