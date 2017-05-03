@@ -1,13 +1,8 @@
 package com.pollub.service;
 
 import com.pollub.model.User;
-import com.pollub.repository.RoleRepository;
-import com.pollub.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -15,30 +10,12 @@ import java.util.List;
  */
 
 @Service
-public class UserService {
+public interface UserService {
+    void save(User user);
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    User findByUsername(String username);
 
-    public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
-        userRepository.save(user);
-    }
+    List<User> findAll();
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    public void delete(long id) {
-        userRepository.delete(id);
-    }
+    void delete(long id);
 }

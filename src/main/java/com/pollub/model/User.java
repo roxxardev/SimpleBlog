@@ -1,6 +1,10 @@
 package com.pollub.model;
 
+import com.pollub.utils.LocalDateTimeConverter;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -11,14 +15,31 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
     private String password;
+
+    @Transient
     private String passwordConfirm;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Comment> comments;
+
+    @Column(length = 200)
+    private String about;
+
+//    @Column(nullable = false)
+    //@Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime registrationDate;
+
     public Long getId() {
         return id;
     }
@@ -43,7 +64,6 @@ public class User {
         this.password = password;
     }
 
-    @Transient
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
@@ -52,8 +72,6 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     public Set<Role> getRoles() {
         return roles;
     }
