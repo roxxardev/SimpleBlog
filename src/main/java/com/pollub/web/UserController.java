@@ -1,7 +1,6 @@
 package com.pollub.web;
 
 import com.pollub.model.User;
-import com.pollub.service.SecurityService;
 import com.pollub.service.UserService;
 import com.pollub.validator.UserValidator;
 import org.slf4j.Logger;
@@ -26,8 +25,6 @@ public class UserController {
     private UserService userService;
     @Autowired
     private UserValidator userValidator;
-    @Autowired
-    private SecurityService securityService;
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -47,7 +44,7 @@ public class UserController {
         }
         String userPassword = userForm.getPassword();
         userService.save(userForm);
-        securityService.autoLogin(userForm.getUsername(), userPassword);
+        userService.autoLogin(userForm.getUsername(), userPassword);
 
         return "redirect:/welcome";
     }

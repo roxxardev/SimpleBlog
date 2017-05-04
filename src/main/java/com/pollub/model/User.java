@@ -1,9 +1,9 @@
 package com.pollub.model;
 
 import com.pollub.utils.LocalDateTimeConverter;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -21,6 +21,10 @@ public class User {
     private String username;
     private String password;
 
+    @Column(unique = true)
+    @Email
+    private String email;
+
     @Transient
     private String passwordConfirm;
 
@@ -36,8 +40,8 @@ public class User {
     @Column(length = 200)
     private String about;
 
-//    @Column(nullable = false)
-    //@Convert(converter = LocalDateTimeConverter.class)
+    @Column(nullable = false)
+    @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime registrationDate;
 
     public Long getId() {
@@ -78,5 +82,37 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 }
