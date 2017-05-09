@@ -69,7 +69,7 @@ public class DefaultUserService implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        return null;
+        return userRepository.findByEmailIgnoreCase(email);
     }
 
     @Override
@@ -106,8 +106,6 @@ public class DefaultUserService implements UserService {
     @Override
     public void autoLogin(String username, String password) {
         UserDetails userDetails = loadUserByUsername(username);
-        logger.info(username + " " + password);
-        logger.info(userDetails.getUsername() + " " + userDetails.getPassword());
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails,password, userDetails.getAuthorities());
 
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);

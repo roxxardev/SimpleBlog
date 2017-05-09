@@ -28,13 +28,17 @@ public class Post {
     @Column(nullable = false)
     private String postText;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "user_id")
+    private User author;
+
     @Column(nullable = false)
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime postDate;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    @OrderBy("postDate asc")
-    private List<Comment> comments = new ArrayList<>();
+    @OrderBy("commentDate asc")
+    private List<Comment> comments;
 
     public Long getId() {
         return Id;
@@ -82,5 +86,13 @@ public class Post {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

@@ -12,5 +12,5 @@
     </footer>
 </div>
 
-<script type="text/javascript" src="webjars/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>

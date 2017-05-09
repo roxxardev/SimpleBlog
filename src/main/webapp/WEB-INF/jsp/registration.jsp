@@ -33,6 +33,12 @@
                 <form:errors path="passwordConfirm"/>
             </div>
         </spring:bind>
+        <spring:bind path="email">
+            <div class="form-group ${status.error ? 'has-error' : ''}">
+                <form:input path="email" placeholder="Email" cssClass="form-control"/>
+                <form:errors path="email"/>
+            </div>
+        </spring:bind>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
     </form:form>
 

@@ -1,6 +1,6 @@
 body {
     padding-bottom: 100px;
-    background-color: #a6eeac;
+    /*background-color: #a6eeac;*/
 }
 
 .footer {
@@ -54,3 +54,4 @@ body {
 .has-error {
     color: red
 }
+

@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -35,7 +36,10 @@ public class User {
     private Set<Role> roles;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Comment> comments;
+    private List<Comment> comments;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author")
+    private List<Post> posts;
 
     @Column(length = 200)
     private String about;
@@ -108,11 +112,19 @@ public class User {
         this.email = email;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

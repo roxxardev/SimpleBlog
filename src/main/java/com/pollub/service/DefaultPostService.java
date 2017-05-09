@@ -26,7 +26,7 @@ public class DefaultPostService implements PostService {
 
     @Override
     public Page<Post> getPosts(int page, int size) {
-        PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC, "commentDate");
+        PageRequest pageRequest = new PageRequest(page, size, Sort.Direction.DESC, "postDate");
         return postRepository.findAll(pageRequest);
     }
 

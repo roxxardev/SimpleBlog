@@ -8,15 +8,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<jsp:include page="header.jsp" />
+<jsp:include page="header.jsp"/>
 <body>
 <div class="container">
     <c:if test="${pageContext.request.userPrincipal.name != null}">
-        <form id="logoutForm" method="post" action="/logout">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        </form>
-
-        <h2>Welcome ${pageContext.request.userPrincipal.name} | <button onclick="document.forms['logoutForm'].submit()" class="btn btn-primary">Logout</button> </h2>
+        <h2>Welcome ${pageContext.request.userPrincipal.name} |
+            <button onclick="document.forms['logoutForm'].submit()" class="btn btn-primary">Logout</button>
+        </h2>
     </c:if>
 </div>
 
